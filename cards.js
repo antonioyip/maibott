@@ -12,28 +12,38 @@ var reminderCard = {
         }
     ],
     "actions": [{
-        "type": "Action.ShowCard",
-        "title": "Remind me in...",
-        "card": {
-            "type": "AdaptiveCard",
-            "body": [],
-            "actions": [{
-                    "type": "Action.Submit",
-                    "title": "1",
-                    "data": {
-                        "type": "1"
+            "type": "Action.ShowCard",
+            "title": "Remind me in...",
+            "card": {
+                "type": "AdaptiveCard",
+                "body": [],
+                "actions": [{
+                        "type": "Action.Submit",
+                        "title": "1",
+                        "data": {
+                            "time": "1",
+                            "type": "snooze"
+                        }
+                    },
+                    {
+                        "type": "Action.Submit",
+                        "title": "2",
+                        "data": {
+                            "time": "1",
+                            "type": "snooze"
+                        }
                     }
-                },
-                {
-                    "type": "Action.Submit",
-                    "title": "2",
-                    "data": {
-                        "type": "2"
-                    }
-                }
-            ]
+                ]
+            }
+        },
+        {
+            "type": "Action.Submit",
+            "title": "Acknowledge",
+            "data": {
+                "type": "acknowledge"
+            }
         }
-    }]
+    ]
 }
 
 module.exports = {

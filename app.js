@@ -21,7 +21,8 @@ var bot = new builder.UniversalBot(connector, [
     function (session) {
         session.beginDialog('start', session.userData.profile)
     },
-    function (session, results) {}
+    function (session, results) {
+    }
 ])
 
 bot.dialog('start', function (session, args) {
@@ -45,13 +46,34 @@ function sendReminder(address) {
     }
 }
 
+function snooze(address) {
+    //delete address.conversation
+    var msg = new builder.Message().address(address)
+    msg.text('Do not forget that today is your day!')
+    msg.textLocale('en-US')
+    bot.send(msg)
+}
+
 bot.dialog('reminder', [
     function (session) {
-        var msg = new builder.Message(session)
-            .addAttachment({
-                contentType: "application/vnd.microsoft.card.adaptive",
-                content: cards.reminderCard
-            })
-        session.send(msg)
+        if (session.message.value) {
+            // handle user input
+            if (session.message.value.type == 'snooze') {
+                var timeout = parseInt(session.message.value.time) * 1000
+                setTimeout(snooze, timeout, session.message.address)
+            } else if (session.message.value.type == 'acknowledge') {
+                // do nothing
+            }
+            session.endDialog()
+        } else {
+            // show card
+            console.log(session.message)
+            var msg = new builder.Message(session)
+                .addAttachment({
+                    contentType: 'application/vnd.microsoft.card.adaptive',
+                    content: cards.reminderCard
+                })
+            session.send(msg)
+        }
     }
 ])
