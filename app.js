@@ -18,10 +18,31 @@ server.post('/api/messages', connector.listen());
 
 var bot = new builder.UniversalBot(connector, [
     function (session) {
-        session.beginDialog('reminder', session.userData.profile);
+        session.beginDialog('start', session.userData.profile);
     },
     function (session, results) {}
 ]);
+
+bot.dialog('start', function (session, args) {
+    var savedAddress = session.message.address;
+
+    console.log(savedAddress)
+
+    var message = 'Thanks for registering!';
+    session.send(message);
+
+    setTimeout(sendReminder, 2000, savedAddress)
+})
+
+function sendReminder(address) {
+    if (address) {
+        console.log('Sending reminder to user')
+        //delete address.conversation
+        bot.beginDialog(address, 'reminder')
+    } else {
+        console.log('Invalid address found')
+    }
+}
 
 bot.dialog('reminder', [
     function (session) {
@@ -64,8 +85,7 @@ bot.dialog('reminder', [
                             ]
                         }
                     ],
-                    "actions": [
-                    ]
+                    "actions": []
                 }
             });
         session.send(msg)
