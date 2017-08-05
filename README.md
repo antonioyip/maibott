@@ -1,8 +1,8 @@
 ## About
 This bot is created using the [Microsoft Bot Framework](https://dev.botframework.com/). It uses [Adaptive Cards](http://adaptivecards.io/) to send reminders to users.
 
-Testing the bot deployed on [Azure](https://azure.microsoft.com) after registering on the Bot Framework.
 ![Web Chat channel test](/../screenshots/screenshots/webclient.png?raw=true "Web Chat channel")
+* Testing the bot deployed on [Azure](https://azure.microsoft.com) using the Web Chat channel on the Bot Framework registration page *
 
 ## Next steps
 * Register users when they add the bot
